@@ -1,0 +1,63 @@
+{% extends 'profiles/layout.html' %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block add_css %}
+    <link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="profile-photo">
+            <img src="{{ user.profile_picture.url }}" alt="User Photo" id="user-photo">
+            {% if is_owner %}
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ image_form.non_field_errors }}
+                    {{ image_form.profile_picture }}
+                    <button type="submit" class="btn-upload">Upload</button>
+                </form>
+            {% endif %}
+        </div>
+        <div class="profile-info">
+            <div class="profile-details">
+                <h1>{{ user.username }}</h1><br>
+                <p>Followers: <span>{{ follow_amount }}</span></p><br>
+                <p>Likes: <span>{{ likes_amount }}</span></p>
+            </div>
+            {% if not is_owner %}
+                {% if is_sub %}
+                <form method="POST" action="/profile/{{ user.id }}/delete/subscriptions/" class="subscribe-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="sub_id" value="{{ sub_obj.id }}">
+                    <input type="hidden" name="redirect_link" value="/profile/{{ user.id }}/">
+                    <button type="submit" class="btn-subscribe">Unsubscribe</button>
+                </form>
+                {% else %}
+                <form method="POST" class="subscribe-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-subscribe">Subscribe</button>
+                </form>
+                {% endif %}
+            {% endif %}
+            {% if is_owner %}
+            <form method="POST" class="edit-name-form">
+                {% csrf_token %}
+                {{ user_name_form.non_field_errors }}
+                {{ user_name_form.username }}
+                <button type="submit" class="btn-save">Save</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="profile-actions">
+        <a href="/profile/{{ user.id }}/subscriptions/" class="btn">Subscriptions</a>
+        <a href="/profile/{{ user.id }}/posts/" class="btn">Posts</a>
+    </div>
+</div>
+{% endblock %}
+
+

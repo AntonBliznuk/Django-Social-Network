@@ -1,0 +1,97 @@
+.profile-container {
+    width: 60%;
+    margin: 0 auto;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-photo img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    padding: 30px;
+}
+
+.btn-upload {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 8px 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.profile-details {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-details h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.profile-details p {
+    font-size: 16px;
+    color: #666;
+}
+
+.edit-name-form {
+    margin-top: 10px;
+}
+
+.edit-name-input {
+    padding: 8px;
+    font-size: 16px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn-save, .btn-subscribe {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-actions {
+    margin-top: 20px;
+}
+
+.profile-actions .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+.profile-actions .btn:hover {
+    background-color: #0056b3;
+}

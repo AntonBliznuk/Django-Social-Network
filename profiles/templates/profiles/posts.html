@@ -1,0 +1,41 @@
+{% extends 'profiles/layout.html' %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block add_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/posts.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="user-posts-container">
+
+    {% if posts %}
+        <div class="posts-grid">
+            {% for post in posts %}
+                <div class="post-card">
+                    <div class="post-image">
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" alt="Post Image">
+                        {% endif %}
+                    </div>
+                    <div class="post-content">
+                        <h3>{{ post.description }}</h3>
+                        <p>{{ post.text|truncatewords:45 }}</p>
+                        <a href="/post/{{ post.id }}/" class="btn-view-post">View Post</a>
+                        {% if is_owner %}
+                            <form method="POST" action="/post/{{ user.id }}/delete/post/" class="delete-post-form">
+                                {% csrf_token %}
+                                <input type="hidden" name="post_id" value="{{ post.id }}">
+                                <button type="submit" class="btn-delete">Delete</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No posts yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

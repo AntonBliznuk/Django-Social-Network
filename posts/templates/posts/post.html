@@ -1,0 +1,86 @@
+{% extends 'posts/layout.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block add_css %}
+    <link rel="stylesheet" href="{% static 'posts/css/post.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="reddit-post-view">
+
+    <!-- Фото и имя пользователя (ссылка на профиль) -->
+    <div class="post-author">
+        <a href="{% url 'profile' post.user.id %}">
+            <img src="{{ post.user.profile_picture.url }}" alt="User Avatar" class="user-avatar">
+        </a>
+        <a href="{% url 'profile' post.user.id %}" class="post-user">{{ post.user.username }}</a>
+    </div>
+
+    <!-- Фото поста -->
+    {% if post.image %}
+        <div class="post-image">
+            <img src="{{ post.image.url }}" alt="Post Image" class="post-thumbnail">
+        </div>
+    {% endif %}
+
+    <!-- Описание и текст поста -->
+    <div class="post-content">
+        <p class="post-description">{{ post.description }}</p>
+        <div class="post-text">{{ post.text }}</div>
+    </div>
+
+    <!-- Кнопка лайка с счетчиком -->
+    <div class="post-actions">
+        <form method="POST">
+            {% csrf_token %}
+            <button class="like-button {% if is_liked %}liked{% endif %}" type="submit">
+                <span>&#x2764;</span>
+            </button>
+            <span class="like-count">{{ like_amount }}</span>
+        </form>
+    </div>
+
+    <!-- Комментарии -->
+    <div class="comments-section">
+        <h3>Comments</h3>
+        {% if request.user.is_authenticated %}
+        <div class="comment-form-container">
+            <form method="POST" class="comment-form">
+                {% csrf_token %}
+                {{ comment_form.text.label_tag }}
+                {{ comment_form.text }}
+                <button type="submit" class="btn-submit-comment">Submit</button>
+            </form>
+        </div>
+        {% else %}
+        <p>You need to <a href="{% url 'login' %}">login</a> to comment.</p>
+        {% endif %}
+
+        {% for comment in comments %}
+        <div class="comment-card">
+            <div class="comment-header">
+                <a href="{% url 'profile' comment.user.id %}">
+                    <img src="{{ comment.user.profile_picture.url }}" alt="User Avatar" class="comment-avatar">
+                </a>
+                <a href="{% url 'profile' comment.user.id %}" class="comment-user">{{ comment.user.username }}</a>
+                <span class="comment-meta">{{ comment.date|date:"M d, Y H:i" }}</span>
+
+                {% if is_owner %}
+                <!-- Кнопка для удаления комментария -->
+                <form method="POST" action="/post/{{ post.id }}/delete/" style="margin-left: auto;">
+                    {% csrf_token %}
+                    <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                    <button type="submit" class="btn-delete-comment">Delete</button>
+                </form>
+                {% endif %}
+            </div>
+            <p class="comment-text">{{ comment.text }}</p>
+        </div>
+        {% empty %}
+        <p>No comments yet. Be the first to comment!</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

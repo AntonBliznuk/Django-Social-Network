@@ -1,0 +1,36 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}Contact{% endblock %}
+
+{% block add_css %}
+<link rel="stylesheet" href="{% static 'main/css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="overlay">
+    <div class="contact-container">
+        <h1>Contact Us</h1>
+        <div class="contact-info">
+            <div class="contact-item">
+                <h2>Phone Numbers</h2>
+                <ul>
+                    <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                    <li><a href="tel:+0987654321">+0 (987) 654-321</a></li>
+                </ul>
+            </div>
+            <div class="contact-item">
+                <h2>Email Addresses</h2>
+                <ul>
+                    <li><a href="mailto:info@yourstore.com">info@yourstore.com</a></li>
+                    <li><a href="mailto:support@yourstore.com">support@yourstore.com</a></li>
+                </ul>
+            </div>
+            <div class="contact-item">
+                <h2>Office Address</h2>
+                <p>1234 Luxury Lane, Suite 567, Cityname, Country</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

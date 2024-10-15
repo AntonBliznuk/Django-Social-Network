@@ -1,0 +1,33 @@
+{% extends 'profiles/layout.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block add_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/register_login.css' %}">
+{% endblock %}
+
+{% block content %}
+<body>
+    <div class="overlay">
+        <main>
+            <div class="login-container">
+                <h2>Registaration</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.name != 'password' %}
+                            {{ field.errors }}
+                        {% endif %}
+                    {% endfor %}
+                    <button type="submit" class="btn">Registaration</button>
+                </form>
+                <button class="btn" onclick="window.location.href='/profile/login/'">Login</button>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
+{% endblock %}

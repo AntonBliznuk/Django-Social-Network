@@ -1,0 +1,48 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}Subscriptions{% endblock %}
+
+{% block add_css %}
+<link rel="stylesheet" href="{% static 'main/css/subscriptions.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="subscriptions-posts-container">
+    <h2>Posts from your subscriptions</h2>
+    <ul class="posts-list">
+        {% for post in posts %}
+            <li class="post-item">
+                <a href="/post/{{ post.id }}/" class="post-link">
+                    <div class="post-thumbnail">
+                        <img src="{{ post.image.url }}" alt="{{ post.description }}">
+                    </div>
+                    <div class="post-content">
+                        <h3 class="post-title">{{ post.description }}</h3>
+                        <p class="post-snippet">{{ post.text|truncatewords:20 }}</p>
+                        <div class="post-author-info">
+                            <img src="{{ post.user.profile_picture.url }}" alt="{{ post.user.username }}" class="author-image">
+                            <div>
+                                <span class="author-name">{{ post.user.username }}</span>
+                                <span class="post-date">{{ post.date|date:"M d, Y" }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        {% if posts.has_previous %}
+            <a href="/subscriptions/page/{{ posts.previous_page_number }}/" class="page-link">Previous</a>
+        {% endif %}
+
+        <span class="page-number">Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+
+        {% if posts.has_next %}
+            <a href="/subscriptions/page/{{ posts.next_page_number }}/" class="page-link">Next</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

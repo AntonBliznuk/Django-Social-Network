@@ -1,0 +1,29 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}About us{% endblock %}
+
+{% block add_css %}
+<link rel="stylesheet" href="{% static 'main/css/about.css' %}">
+{% endblock %}
+
+{% block content %} 
+
+<div class="about-us-header">
+    <h1>Our Team</h1>
+    <p>We are proud of our team of professionals who create and develop this project. Each of us puts our heart into the work to provide you with the best service!</p>
+</div>
+<div class="team-container">
+    {% for worker in workers %}
+    <div class="team-card">
+        <img src="{{ worker.photo.url }}" alt="{{ worker.first_name }} {{ worker.second_name }}" class="worker-image">
+        <div class="worker-details">
+            <h2>{{ worker.first_name }} {{ worker.last_name }}</h2>
+            <p class="position">{{ worker.position }}</p>
+        </div>
+    </div>
+    {% empty %}
+    <p>The team is not yet presented</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'profiles/layout.html' %}
+{% load static %}
+
+{% block title %}Subscriptions{% endblock %}
+
+{% block add_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/subscriptions.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="subscriptions-container">
+    <h2>Subscriptions</h2>
+    <ul class="subscription-list">
+        {% for sub in subscriptions %}
+            <li class="subscription-item">
+                <a href="/profile/{{ sub.user_to.id }}/">
+                <div class="subscription-info">
+                    <img src="{{ sub.user_to.profile_picture.url }}" alt="{{ sub.user_to.username }}" class="profile-image">
+                    <span class="subscription-name">{{ sub.user_to.username }}</span>
+                </div>
+                </a>
+                {% if is_owner %}
+                    <form method="POST" action="/profile/{{ user.id }}/delete/subscriptions/" class="delete-sub-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="sub_id" value="{{ sub.id }}">
+                        <input type="hidden" name="redirect_link" value="/profile/{{ user.id }}/subscriptions/">
+                        <button type="submit" class="btn-delete">Unsubscribe</button>
+                    </form>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
