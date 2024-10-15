@@ -55,7 +55,6 @@ class Like(models.Model):
         ordering = ['-date', 'user']
 
 
-
 """
 A model for storing post categories.
 """
@@ -84,3 +83,19 @@ class Category_Of_Post(models.Model):
     class Meta:
         verbose_name = 'Category_Of_Post'
         verbose_name_plural = 'Category_Of_Posts'
+
+
+"""
+A model for collecting information about users' post views.
+"""
+class PostView(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f'{self.user} --> {self.post}({self.date})'
+    
+    class Meta:
+        verbose_name = 'PostView'
+        verbose_name_plural = 'PostViews'
