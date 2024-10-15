@@ -51,8 +51,11 @@ def subscriptions(request, page_number):
         for user in followed_users:
             for post in Post.objects.filter(user=user).order_by('-date')[:10]:
                 posts.append(post)
-                
 
+        # Sorting posts by date.
+        posts.sort(key=lambda x: x.date)
+            
+                
         # Create a paginator object and pass to it all posts and the number of posts on one page.
         paginator = Paginator(posts, POSTS_ON_PAGE)
 

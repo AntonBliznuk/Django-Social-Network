@@ -48,6 +48,15 @@ def view_post(request, post_id):
     # If such a post exists, proceed as follows.
     if post:
 
+        # Register post view by user.
+        # If this user has already viewed this post, delete the past entry.
+        if (old_view := models.PostView.objects.filter(user=request.user, post=post)):
+            old_view.delete()
+
+        # Add a post page view record.
+        new_view = models.PostView(user=request.user, post=post)
+        new_view.save()
+
         # We don't know yet if this user liked this post or owns it.
         is_liked = False
         is_owner = False
@@ -122,6 +131,7 @@ def delete_comment(request, post_id):
     # If something went wrong in the process, for example, the comment does not exist or the user does not have permission to delete it,
     # we redirect it to the home page.
     return redirect('home')
+
 
 
 def delete_post(request, user_id):
