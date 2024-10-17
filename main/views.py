@@ -1,14 +1,50 @@
 from . import models
 from posts.models import Post
+from django.db.models import Q
 from profiles.models import Subscribe
 from django.shortcuts import render, redirect
+from .SupportPrograms import recomendations
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def home(request):
     """
-    Function for displaying the home page.
+    This function shows the user's home page, where you can find recommendations based on the viewed posts of the user,
+    if the user is not authorized or has not yet seen the posts, random posts are displayed,
+    as well as the ability to search by post title and post text.
     """
-    return render(request, 'main/home.html')
+    # If the user did not send a GET request, we redirect to the home page.
+    if request.method != 'GET':
+        return redirect('home')
+    
+    # Initialize the dictionary in which we will put all the necessary data,
+    # as well as create a recommender object to create user recommendations.
+    data = {}
+    recomender = recomendations.Recomender()
+
+    # If the user is not authenticated, we write random recommendations to the dictionary.
+    if not request.user.is_authenticated:
+        data['posts'] = recomender.random_rec()
+
+    else: # If the user is authenticated, perform the following actions.
+
+        # If we succeeded in personalizing recommendations, we pass them to the dictionary,
+        # and if we failed we pass random recommendations.
+        if (result := recomender.user_rec(request.user)):
+            data['posts'] = result
+        else:
+            data['posts'] = recomender.random_rec()
+
+    # If the user passed parameters for the search, we search for the necessary posts and pass them to the dictionary,
+    # and if the user did not pass None to the dictionary.
+    if (search := request.GET.get('search')):
+        posts = Post.objects.all()
+        search_results = posts.filter(Q(text__icontains=search) | Q(description__icontains=search))
+        data['search_results'] = search_results
+    else:
+        data['search_results'] = None
+
+    # Transfer all data to the template.
+    return render(request, 'main/home.html', data)
 
 
 def about(request):

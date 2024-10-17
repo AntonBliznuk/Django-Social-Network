@@ -1,11 +1,75 @@
 {% extends 'main/layout.html' %}
 {% load static %}
 
-{% block title %}Contact{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block add_css %}
+<link rel="stylesheet" href="{% static 'main/css/home.css' %}">
 {% endblock %}
 
 {% block content %}
-<h1>Home Page</h1>
+<div class="search-container">
+    <form method="GET" action="{% url 'home' %}">
+        <input type="text" name="search" placeholder="Search..." value="{{ request.GET.search }}" class="search-input">
+        <button type="submit" class="search-button">Search</button>
+    </form>
+</div>
+
+{% if search_results %}
+<div class="search-results-container">
+    <h2>Search Results</h2>
+    <ul class="posts-list">
+        {% for post in search_results %}
+            <li class="post-item">
+                <a href="/post/{{ post.id }}/" class="post-link">
+                    <div class="post-thumbnail">
+                        <img src="{{ post.image.url }}" alt="{{ post.description }}">
+                    </div>
+                    <div class="post-content">
+                        <h3 class="post-title">{{ post.description }}</h3>
+                        <p class="post-snippet">{{ post.text|truncatewords:20 }}</p>
+                        <div class="post-author-info">
+                            <img src="{{ post.user.profile_picture.url }}" alt="{{ post.user.username }}" class="author-image">
+                            <div>
+                                <span class="author-name">{{ post.user.username }}</span>
+                                <span class="post-date">{{ post.date|date:"M d, Y" }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="subscriptions-posts-container">
+    <h2>Recommendations for you</h2>
+    <ul class="posts-list">
+        {% for post in posts %}
+            <li class="post-item">
+                <a href="/post/{{ post.id }}/" class="post-link">
+                    <div class="post-thumbnail">
+                        <img src="{{ post.image.url }}" alt="{{ post.description }}">
+                    </div>
+                    <div class="post-content">
+                        <h3 class="post-title">{{ post.description }}</h3>
+                        <p class="post-snippet">{{ post.text|truncatewords:20 }}</p>
+                        <div class="post-author-info">
+                            <img src="{{ post.user.profile_picture.url }}" alt="{{ post.user.username }}" class="author-image">
+                            <div>
+                                <span class="author-name">{{ post.user.username }}</span>
+                                <span class="post-date">{{ post.date|date:"M d, Y" }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        <a href="/" class="page-link">More</a>
+    </div>
+</div>
 {% endblock %}

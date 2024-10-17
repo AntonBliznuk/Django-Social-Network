@@ -99,3 +99,4 @@ class PostView(models.Model):
     class Meta:
         verbose_name = 'PostView'
         verbose_name_plural = 'PostViews'
+        ordering = ['-date']
