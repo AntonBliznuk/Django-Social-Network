@@ -21,15 +21,36 @@
     padding: 30px;
 }
 
+.photo-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.custom-file-input {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .btn-upload {
     display: inline-block;
-    margin-top: 5px;
-    padding: 8px 12px;
+    margin-top: 10px;
+    padding: 10px 16px;
     background-color: #4caf50;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-upload:hover {
+    background-color: #45a049;
 }
 
 .profile-info {
@@ -40,45 +61,70 @@
     justify-content: center;
 }
 
-.profile-details {
+.user-stats {
     display: flex;
-    align-items: center;
-    gap: 15px;
+    gap: 30px;
+    margin-top: 10px;
 }
 
-.profile-details h1 {
+.stat-number {
     font-size: 24px;
-    color: #333;
+    font-weight: bold;
+    color: #007bff;
 }
 
-.profile-details p {
+.stat-label {
     font-size: 16px;
     color: #666;
 }
 
 .edit-name-form {
-    margin-top: 10px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
 }
 
 .edit-name-input {
-    padding: 8px;
+    padding: 10px;
     font-size: 16px;
     margin-right: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    width: 200px;
 }
 
-.btn-save, .btn-subscribe {
+.btn-save {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 6px 12px;
+    padding: 10px 16px;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-save:hover {
+    background-color: #0056b3;
+}
+
+.btn-subscribe {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-subscribe:hover {
+    background-color: #0056b3;
 }
 
 .profile-actions {
     margin-top: 20px;
+    display: flex;
+    gap: 10px;
 }
 
 .profile-actions .btn {
@@ -88,7 +134,6 @@
     color: white;
     text-decoration: none;
     border-radius: 5px;
-    margin-right: 10px;
     transition: background-color 0.3s;
 }
 

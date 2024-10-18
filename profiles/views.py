@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from . import forms
 from . import models
-from posts.models import Like, Post
+from posts.models import Like, Post, PostView
 
 
 def profile_page(request, user_id):
@@ -174,10 +174,12 @@ def register(request):
 
             # redirect to the home page.
             return redirect('home')
+        
+        else: # If the user has entered incorrect data, we output the form with errors.
+            return render(request, 'profiles/register.html', {'form': form})
 
     # If the user is not logged in and has sent a GET request, the registration form is returned.
     return render(request, 'profiles/register.html', {'form': forms.RegisterForm})
-
 
 
 
@@ -194,11 +196,17 @@ def login_page(request):
         form = forms.LoginForm(data=request.POST)
         if form.is_valid(): # Form verification.
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password']) # Authentication.
-            if user:
-                # log in and redirect to the home page.
+
+            if user: # log in and redirect to the home page.
                 login(request, user)
                 return redirect('home')
             
+            else: # If the user with this data does not exist, add an error to the form.
+                form.add_error('username','Wrong username or password!')
+
+        # If errors occurred while processing the form, return the form with errors.
+        return render(request, 'profiles/login.html', {'form': form})
+        
     # If the user is not logged in and has sent a GET request, the log in form is returned.
     return render(request, 'profiles/login.html', {'form': forms.LoginForm})
 
@@ -210,3 +218,38 @@ def logout_page(request):
     """
     logout(request) # logout.
     return redirect('home') # redirect to the home page.
+
+
+
+def user_subscribers(request, user_id):
+    # Looking for a user with this user_id.
+    user = models.CustomUser.objects.filter(id=user_id).first()
+    if user:
+
+        # Initialize the dictionary that we pass to the template.
+        data = {
+            'subscriptions': models.Subscribe.objects.filter(user_to=user).order_by('-date'),
+        }
+        return render(request, 'profiles/subscribers.html', data)
+    
+    # If the user with this user_id does not exist, redirect to the home page.
+    return redirect('home')
+
+
+
+def user_history(request, user_id):
+     # Looking for a user with this user_id.
+    user = models.CustomUser.objects.filter(id=user_id).first()
+    if user and request.user.id == user.id:
+
+        # Initialize the dictionary that we pass to the template.
+        data = {
+            'viewed_posts': PostView.objects.filter(user=user).order_by('-date')
+        }
+        return render(request, 'profiles/history.html', data)
+    
+    # If the user with this user_id does not exist, redirect to the home page.
+    return redirect('home')
+
+
+

@@ -13,20 +13,29 @@
         <div class="profile-photo">
             <img src="{{ user.profile_picture.url }}" alt="User Photo" id="user-photo">
             {% if is_owner %}
-                <form method="POST" enctype="multipart/form-data">
+                <form method="POST" enctype="multipart/form-data" class="photo-form">
                     {% csrf_token %}
                     {{ image_form.non_field_errors }}
                     {{ image_form.profile_picture }}
-                    <button type="submit" class="btn-upload">Upload</button>
+                    <button type="submit" class="btn-upload">Upload New Photo</button>
                 </form>
             {% endif %}
         </div>
         <div class="profile-info">
             <div class="profile-details">
-                <h1>{{ user.username }}</h1><br>
-                <p>Followers: <span>{{ follow_amount }}</span></p><br>
-                <p>Likes: <span>{{ likes_amount }}</span></p>
+                <h1>{{ user.username }}</h1>
+                <div class="user-stats">
+                    <div class="followers">
+                        <span class="stat-number">{{ follow_amount }}</span>
+                        <span class="stat-label">Followers</span>
+                    </div>
+                    <div class="likes">
+                        <span class="stat-number">{{ likes_amount }}</span>
+                        <span class="stat-label">Likes</span>
+                    </div>
+                </div>
             </div>
+
             {% if not is_owner %}
                 {% if is_sub %}
                 <form method="POST" action="/profile/{{ user.id }}/delete/subscriptions/" class="subscribe-form">
@@ -42,12 +51,13 @@
                 </form>
                 {% endif %}
             {% endif %}
+
             {% if is_owner %}
             <form method="POST" class="edit-name-form">
                 {% csrf_token %}
                 {{ user_name_form.non_field_errors }}
                 {{ user_name_form.username }}
-                <button type="submit" class="btn-save">Save</button>
+                <button type="submit" class="btn-save">Save Name</button>
             </form>
             {% endif %}
         </div>
@@ -55,9 +65,11 @@
 
     <div class="profile-actions">
         <a href="/profile/{{ user.id }}/subscriptions/" class="btn">Subscriptions</a>
+        <a href="/profile/{{ user.id }}/subscribers/" class="btn">Subscribers</a>
+        {% if is_owner %}
+        <a href="/profile/{{ user.id }}/history/" class="btn">View History</a>
+        {% endif %}
         <a href="/profile/{{ user.id }}/posts/" class="btn">Posts</a>
     </div>
 </div>
 {% endblock %}
-
-

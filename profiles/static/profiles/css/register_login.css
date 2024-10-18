@@ -96,3 +96,25 @@ label {
     display: block;
     margin-bottom: 5px; /* Spacing under the label */
 }
+
+/* Стили для уведомлений об ошибках */
+.alert {
+    color: #d9534f; /* Красный цвет для ошибок */
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px; /* Расстояние между ошибкой и полем */
+}
+
+.alert ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.alert-danger {
+    background-color: rgba(255, 0, 0, 0.1); /* Легкий красный фон для ошибок */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #d9534f; /* Красная рамка */
+    margin-bottom: 15px; /* Отступы между ошибками и элементами */
+}

@@ -27,6 +27,11 @@ class UploadUserImage(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ['profile_picture']
+        widgets = {
+            'profile_picture': forms.FileInput(attrs={
+                'class': 'custom-file-input',  # Добавляем класс здесь
+            })
+        }
 
 
 """
@@ -36,4 +41,10 @@ class UploadUserName(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ['username']
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'class': 'edit-name-input',  # Добавляем класс здесь
+                'placeholder': 'Enter new username',
+            })
+        }
 
