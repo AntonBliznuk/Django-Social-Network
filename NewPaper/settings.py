@@ -22,11 +22,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Добавьте пути к статическим файлам каждого приложения
-"""STATICFILES_DIRS = [
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'main', 'static'),
     os.path.join(BASE_DIR, 'posts', 'static'),
     os.path.join(BASE_DIR, 'profiles', 'static'),
-]"""
+]
 
 
 # Quick-start development settings - unsuitable for production
