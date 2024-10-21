@@ -1,0 +1,171 @@
+.reddit-post-view {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Стиль для фото пользователя и поста */
+.post-author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.post-image {
+    margin-bottom: 20px;
+}
+
+.post-thumbnail {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Контент поста */
+.post-content {
+    margin-bottom: 20px;
+}
+
+.post-description {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.post-text {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Кнопка лайка */
+.post-actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.like-button {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    color: #ff4500;
+    cursor: pointer;
+}
+
+.like-button span {
+    margin-right: 5px;
+}
+
+/* Комментарии */
+.comments-section {
+    margin-top: 30px;
+}
+
+.comment-card {
+    display: flex;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.comment-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.comment-text {
+    font-size: 14px;
+    color: #555;
+}
+
+.btn-submit-comment {
+    background-color: #0079d3;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-submit-comment:hover {
+    background-color: #005bb5;
+}
+
+/* Кнопка лайка и счетчик */
+.post-actions {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.like-button {
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    color: #967367;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.like-button span {
+    margin-right: 5px;
+}
+
+.like-count {
+    font-size: 18px;
+    color: #555;
+}
+
+/* Изменение цвета кнопки при лайке */
+.liked {
+    color: #ff4500;
+    font-weight: bold;
+}
+
+.like-button:hover {
+    color: #ff6347;
+}
+
+/* Ссылка на профиль пользователя */
+.post-user, .comment-user {
+    font-weight: bold;
+    color: #0079d3;
+    text-decoration: none;
+}
+
+.post-user:hover, .comment-user:hover {
+    text-decoration: underline;
+}
+
+/* Кнопка удаления комментария */
+.btn-delete-comment {
+    background-color: #e74c3c;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-delete-comment:hover {
+    background-color: #c0392b;
+}

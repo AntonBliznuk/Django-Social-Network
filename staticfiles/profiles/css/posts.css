@@ -1,0 +1,147 @@
+/* Основные стили для контейнера постов */
+.user-posts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+}
+
+/* Стиль для каждого поста */
+.post-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Заголовок поста */
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.post-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.post-image-container {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 250px;
+    overflow: hidden;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.post-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    border-radius: 12px;
+}
+.post-image img {
+    max-width: 500px;
+    max-height: 400px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    border-radius: 12px;
+}
+
+.post-image-container:hover img {
+    transform: scale(1.05);
+}
+
+/* Контент поста */
+.post-content {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* Кнопки удаления */
+.delete-button {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+.delete-button:hover {
+    background-color: #d93636;
+}
+
+/* Стили для информации о посте */
+.post-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #888;
+    margin-top: 10px;
+}
+
+/* Стили для фотографий профиля */
+.profile-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+    .user-posts-container {
+        padding: 20px;
+    }
+
+    .post-card {
+        padding: 15px;
+    }
+
+    .post-header h2 {
+        font-size: 20px;
+    }
+
+    .delete-button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .post-image-container {
+        max-height: 200px;
+    }
+}

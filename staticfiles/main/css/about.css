@@ -1,0 +1,102 @@
+/* Container for the entire team */
+.team-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;  /* Increase the gap between cards */
+    justify-content: center;
+    padding: 50px;
+    background-color: #f4f4f4;
+}
+
+/* Style for enlarged team member card */
+.team-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 15px;  /* Slightly round the corners */
+    width: 350px;  /* Increase card width */
+    text-align: center;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect */
+.team-card:hover {
+    transform: scale(1.05);
+}
+
+/* Style for enlarged team member image */
+.worker-image {
+    width: 100%;
+    height: 350px;  /* Increase image height */
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+/* Style for team member details */
+.worker-details {
+    padding: 20px;
+}
+
+.worker-details h2 {
+    font-size: 1.8em;  /* Increase font size for name */
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.worker-details .position {
+    font-size: 1.3em;  /* Slightly increase font size for position */
+    color: #777;
+}
+
+/* Styles for "Our Team" page header */
+.about-us-header {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 40px;
+    background: linear-gradient(135deg, #000000, #bd8b00);  /* Gradient background */
+    color: white;
+    border-radius: 0px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);  /* Deeper shadow */
+}
+
+/* Styles for the main header */
+.about-us-header h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;  /* Slight letter spacing */
+    text-transform: uppercase;  /* Transform text to uppercase */
+    color: gold; /* Gold text color */
+    text-shadow: 0 0 10px rgba(255, 223, 0, 0.8), /* Golden glow */
+                 0 0 20px rgba(255, 223, 0, 0.6), /* Additional glow */
+                 2px 2px 5px rgba(0, 0, 0, 0.3);  /* Text shadow */
+    transition: text-shadow 0.3s ease;
+}
+
+/* Enhanced glow on hover */
+.about-us-header h1:hover {
+    text-shadow: 0 0 20px rgba(255, 223, 0, 1), /* Stronger golden glow */
+                 0 0 30px rgba(255, 223, 0, 0.9), /* Enhanced additional glow */
+                 2px 2px 5px rgba(0, 0, 0, 0.4);  /* Enhanced shadow */
+}
+
+/* Styles for the subtitle */
+.about-us-header p {
+    font-size: 1.4em;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    color: #f0f0f0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);  /* Light text shadow */
+}
+
+/* Reduce sizes for mobile devices */
+@media (max-width: 768px) {
+    .about-us-header h1 {
+        font-size: 2.5em;
+    }
+    .about-us-header p {
+        font-size: 1.2em;
+    }
+}
