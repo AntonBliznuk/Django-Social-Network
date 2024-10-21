@@ -4,10 +4,48 @@
 {% block title %}History{% endblock %}
 
 {% block add_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/history.css' %}">
 {% endblock %}
 
 {% block content %}
-{% for post in viewed_posts %}
-    <h1>{{ post }}</h1>
-{% endfor %}
+<div class="history-container">
+    <h2 class="history-title">Viewing History</h2>
+    <form method="post" action="" class="clean-history-form">
+        {% csrf_token %}
+        <button type="submit" class="clean-history-btn">Clean History</button>
+    </form>
+    <div class="history-list">
+        {% for view in viewed_posts %}
+        <a href="/post/{{ view.post.id }}/" class="history-item-link">
+            <div class="history-item">
+                <img src="{{ view.post.image.url }}" alt="{{ view.post.title }}" class="post-image">
+                <div class="post-info">
+                    <h3 class="post-title">{{ view.post.description }}</h3>
+                    <p class="post-text">{{ view.post.text }}</p>
+                    <p class="post-author">
+                        By: <a href="/profile/{{ view.post.user.id }}/" class="author-link">{{ view.post.user.username }}</a>
+                    </p>
+                </div>
+            </div>
+        </a>
+        <form method="post" action="/profile/{{ user.id }}/deleteview/" class="delete-form">
+            {% csrf_token %}
+            <input type="hidden" name="view_id" value="{{ view.id }}">
+            <input type="hidden" name="redirect_link" value="/profile/{{ user.id }}/history/page/{{ viewed_posts.number }}/">
+            <button type="submit" class="delete-btn">Delete</button>
+        </form>
+        {% endfor %}
+    </div>
+</div>
+<div class="pagination">
+    {% if viewed_posts.has_previous %}
+        <a href="{% url 'history' user.id viewed_posts.previous_page_number %}" class="page-link">Previous</a>
+    {% endif %}
+
+    <span class="page-number">Page {{ viewed_posts.number }} of {{ viewed_posts.paginator.num_pages }}</span>
+
+    {% if viewed_posts.has_next %}
+        <a href="{% url 'history' user.id viewed_posts.next_page_number %}" class="page-link">Next</a>
+    {% endif %}
+</div>
 {% endblock %}

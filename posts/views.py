@@ -50,12 +50,13 @@ def view_post(request, post_id):
 
         # Register post view by user.
         # If this user has already viewed this post, delete the past entry.
-        if (old_view := models.PostView.objects.filter(user=request.user, post=post)):
-            old_view.delete()
+        if request.user.is_authenticated:
+            if (old_view := models.PostView.objects.filter(user=request.user, post=post)):
+                old_view.delete()
 
-        # Add a post page view record.
-        new_view = models.PostView(user=request.user, post=post)
-        new_view.save()
+            # Add a post page view record.
+            new_view = models.PostView(user=request.user, post=post)
+            new_view.save()
 
         # We don't know yet if this user liked this post or owns it.
         is_liked = False

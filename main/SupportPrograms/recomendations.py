@@ -42,9 +42,15 @@ class Recomender():
         The method selects personalized recommendations for the user based on the posts they have viewed.
         Accepts user object. Returns 10 personalized posts.
         """
+        
+        # Constant for selecting the number of recent posts on which recommendations will be based.
+        NUMBER_OF_RECENT_POSTS = 10
+        # Constant for selecting the number of posts that will be recommended.
+        AMOUNT_OF_RECOMENDED_POSTS = 10
+
 
         # Get the 10 most recently viewed posts by a particular user.
-        views = PostView.objects.filter(user=user)[:10]
+        views = PostView.objects.filter(user=user)[:NUMBER_OF_RECENT_POSTS]
         viewed_posts = [i.post for i in views]
 
         # If no viewed posts could be found, return None.
@@ -83,18 +89,29 @@ class Recomender():
         # Calculate how many posts will be allocated to a category.
         amount_post_for_cat = {}
         for k, v in percents_cat.items():
-            amount_post_for_cat[k] = int(10 * (v / 100))
+            amount_post_for_cat[k] = int(AMOUNT_OF_RECOMENDED_POSTS * (v / 100))
 
         # Initialize the list and add posts with the required categories to it in the required number of posts.
         result = []
         for k, v in amount_post_for_cat.items():
             cat_of_posts = list(Category_Of_Post.objects.filter(category=k))
             random.shuffle(cat_of_posts)
-            posts = [i.post for i in cat_of_posts[:v]]
 
+            # Create a list for posts, select posts by specific categories, but only from other users,
+            # the user who made the request will not see their posts in the recommendations.
+            posts = []
+            for i in range(0, len(cat_of_posts)):
+                if cat_of_posts[i].post.user != user:
+                    if len(posts) < v:
+                        posts.append(cat_of_posts[i].post)
+                    else:
+                        break
+                else:
+                    i -= 1
+                    
+            # Add the selected posts to all other posts.
             for p in posts:
                 result.append(p)
 
         # Return the result.
         return result
-

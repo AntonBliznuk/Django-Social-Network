@@ -1,8 +1,9 @@
-from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render, redirect
 from . import forms
 from . import models
 from posts.models import Like, Post, PostView
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def profile_page(request, user_id):
@@ -222,6 +223,9 @@ def logout_page(request):
 
 
 def user_subscribers(request, user_id):
+    """
+    Function for viewing the user's subscribers.
+    """
     # Looking for a user with this user_id.
     user = models.CustomUser.objects.filter(id=user_id).first()
     if user:
@@ -237,19 +241,76 @@ def user_subscribers(request, user_id):
 
 
 
-def user_history(request, user_id):
-     # Looking for a user with this user_id.
+def user_history(request, user_id, page_number):
+    """
+    A function that shows the history of the user's viewed posts and breaks the viewed posts into pages.
+    Accepts: user_id(Unique user number), page_number(page number).
+    """
+    # Looking for a user with this user_id.
     user = models.CustomUser.objects.filter(id=user_id).first()
-    if user and request.user.id == user.id:
+
+    # If such a user exists and accesses his/her page and the request method is GET, perform the following action.
+    if user and request.user.id == user.id and request.method == 'GET':
+
+        # Constant for selecting the number of posts on one page.
+        VIEWS_ON_PAGE = 10
+
+        # We take all the user's views and sort them by date.
+        viewed_posts = PostView.objects.filter(user=user).order_by('-date')
+
+        # Create a paginator object.
+        paginator = Paginator(viewed_posts, VIEWS_ON_PAGE)
+
+        # Trying to get data on the page specified by the user.
+        try:
+            paginated_views = paginator.page(page_number)
+
+        # If the entered page number is not an integer, redirect to the first page.
+        except PageNotAnInteger:
+            paginated_views = paginator.page(1)
+
+        # If the entered page number is too large, return the last page.
+        except EmptyPage:
+            paginated_views = paginator.page(paginator.num_pages)
+
 
         # Initialize the dictionary that we pass to the template.
         data = {
-            'viewed_posts': PostView.objects.filter(user=user).order_by('-date')
+            'viewed_posts': paginated_views 
         }
         return render(request, 'profiles/history.html', data)
+    
+    # If such a user exists and accesses his/her page and the request method is POST, perform the following action.
+    elif user and request.user.id == user.id and request.method == 'POST':
+
+        # Delete all the user's views and redirect the user to the first page.
+        history = PostView.objects.filter(user=request.user)
+        history.delete()
+        return redirect(f'/profile/{user_id}/history/page/1/')
+
     
     # If the user with this user_id does not exist, redirect to the home page.
     return redirect('home')
 
 
 
+def delete_user_view(request, user_id):
+    """
+    A feature that allows you to delete a specific view of a specific post from a specific user.
+    Accepts: user_id(Unique user number).
+    """
+    # Looking for a user with this user_id.
+    user = models.CustomUser.objects.filter(id=user_id).first()
+
+    # If such a user exists and tries to delete his/her view and POST request method, perform the following actions.
+    if user and user.id == request.user.id and request.method == 'POST':
+        
+        # Find user's view using view_id(unique view number) from POST request, if such view exists,
+        # delete it and redirect user to the page that was specified in POST request.
+        view = PostView.objects.filter(id=request.POST.get('view_id')).first()
+        if view:
+            view.delete()
+            return redirect(request.POST.get('redirect_link'))
+        
+    # If something goes wrong in the process, redirect the user to the home page. 
+    return redirect('home')
