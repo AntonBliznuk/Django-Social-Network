@@ -39,7 +39,7 @@ SECRET_KEY = 'django-insecure-drq=+i!-skvkchpzz9t0hzv_cua)skxkc#m73z7%5vg8rvctbl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['your-render-domain.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['newspaper-zjf5.onrender.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
