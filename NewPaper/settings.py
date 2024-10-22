@@ -15,8 +15,8 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Добавьте пути к статическим файлам каждого приложения
 STATICFILES_DIRS = [
@@ -25,7 +25,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'profiles/static'),
 ]
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -33,7 +32,7 @@ STATICFILES_DIRS = [
 SECRET_KEY = 'django-insecure-drq=+i!-skvkchpzz9t0hzv_cua)skxkc#m73z7%5vg8rvctbl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['newspaper-zjf5.onrender.com', '127.0.0.1', 'localhost']
 
@@ -53,7 +52,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    #'django.middleware.security.SecurityMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
