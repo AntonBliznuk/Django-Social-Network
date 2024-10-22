@@ -21,7 +21,7 @@ A model for storing information on female workers.
 class Worker(models.Model):
     first_name = models.CharField(max_length=25, blank=False)
     second_name = models.CharField(max_length=25, blank=False)
-    photo = models.ImageField(upload_to='media/workers/', blank=False)
+    photo = models.ImageField(upload_to='workers/', blank=False)
     position = models.ForeignKey(Position, on_delete=models.CASCADE, blank=False)
 
     def __str__(self) -> str:
