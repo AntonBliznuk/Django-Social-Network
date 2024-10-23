@@ -5,7 +5,7 @@ from django.db import models
 Custom user model for storing image.
 """
 class CustomUser(AbstractUser):
-    profile_picture = models.ImageField(upload_to='profile_pictures/', default='profile_pictures/DefaulUser.jpg', blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', default='profile_pictures/Default.jpg', blank=True, null=True)
 
     def __str__(self) -> str:
         return f"{self.username} -> {self.id}"

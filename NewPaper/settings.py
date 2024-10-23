@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -93,10 +94,9 @@ WSGI_APPLICATION = 'NewPaper.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://newspaperdb_nprz_user:KD5MR4p4AGoEYT0wcfgbc827BD9Zsntx@dpg-cscbn2lds78s738mpppg-a.frankfurt-postgres.render.com/newspaperdb_nprz'
+    )
 }
 
 

@@ -23,7 +23,10 @@ def home(request):
 
     # If the user is not authenticated, we write random recommendations to the dictionary.
     if not request.user.is_authenticated:
-        data['posts'] = recomender.random_rec()
+        try:
+            data['posts'] = recomender.random_rec()
+        except:
+            data['posts'] = None
 
     else: # If the user is authenticated, perform the following actions.
 
@@ -32,7 +35,10 @@ def home(request):
         if (result := recomender.user_rec(request.user)):
             data['posts'] = result
         else:
-            data['posts'] = recomender.random_rec()
+            try:
+                data['posts'] = recomender.random_rec()
+            except:
+                data['posts'] = None
 
     # If the user passed parameters for the search, we search for the necessary posts and pass them to the dictionary,
     # and if the user did not pass None to the dictionary.
