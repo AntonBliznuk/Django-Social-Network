@@ -18,7 +18,7 @@ def profile_page(request, user_id):
         all_user_posts = Post.objects.all()
         likes_amount = 0
         for post in all_user_posts:
-            likes_amount += Like.objects.filter(user=user, post=post).count()
+            likes_amount += Like.objects.filter(post=post).count()
 
         # Counting all of the user's follows.
         follow_amount = models.Subscribe.objects.filter(user_to=user).count()
