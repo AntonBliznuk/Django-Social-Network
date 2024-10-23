@@ -12,20 +12,24 @@ body {
     align-items: center;
     justify-content: space-between;
     background-color: #333;
-    padding: 0 20px;
+    padding: 10px;
     width: 100%;
     box-sizing: border-box;
-    height: 80px;
+    height: 70px;
+    flex-wrap: wrap; /* Allows wrapping of elements on small screens */
 }
 
 /* Styles for logo */
 .main-header .logo {
     flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .main-header .logo h1 {
     color: #fff;
-    font-size: 2.5em;
+    font-size: 1.8em;
     margin: 0;
 }
 
@@ -34,132 +38,146 @@ body {
     flex: 2;
     display: flex;
     justify-content: center;
+    width: 100%;
+    margin-top: 10px;
 }
 
 .main-nav ul {
     display: flex;
+    flex-wrap: wrap; /* Allows wrapping of items */
     list-style-type: none;
-    gap: 30px;
+    gap: 10px;
     margin: 0;
     padding: 0;
+    justify-content: center;
+    width: 100%;
+}
+
+.main-nav ul li {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    min-width: 100px; /* Ensures minimum width for each item */
 }
 
 .main-nav ul li a {
     text-decoration: none;
-    padding: 15px 30px;
-    font-size: 1.4em;
+    padding: 10px 15px;
+    font-size: 0.9em;
     color: #fff;
     background-color: #555;
-    border-radius: 10px;
+    border-radius: 5px;
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    display: block;
+    text-align: center;
+    width: 100%;
 }
 
 .main-nav ul li a:hover {
     background-color: #a78001;
-    transform: scale(1.1);
 }
 
 .main-nav ul li a.active {
     background-color: #FFD700;
-    box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.7);
+    box-shadow: 0 0 10px 3px rgba(255, 215, 0, 0.7);
     font-weight: bold;
-    transform: scale(1.1);
 }
 
 /* Styles for authentication panel */
+.auth-panel {
+    flex: 1;
+    text-align: right;
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
 .auth-panel a {
     color: white;
     background-color: #555;
-    padding: 10px 20px;
+    padding: 8px 15px;
     border-radius: 5px;
     text-decoration: none;
-    font-size: 1.2em;
-    margin-left: 10px; /* For spacing between buttons */
+    font-size: 0.9em;
+    margin: 5px 0;
+    width: 100px;
+    text-align: center;
 }
 
 .auth-panel a:hover {
     background-color: #a78001;
 }
 
-.auth-panel {
-    flex: 1;
-    text-align: right;
-}
-
-/* Responsiveness */
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .main-header {
         flex-direction: column;
         align-items: center;
-        padding: 20px;
+        height: auto;
+        padding: 15px;
     }
 
     .main-header .logo h1 {
-        font-size: 1.8em;
+        font-size: 1.5em;
         text-align: center;
     }
 
     .main-nav {
-        width: 100%;
         margin-top: 15px;
-    }
-
-    .main-nav ul {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .main-nav ul li a {
-        font-size: 1.1em;
-        padding: 12px 20px;
+        order: 2; /* Reorder to make it appear below logo on small screens */
     }
 
     .auth-panel {
-        width: 100%;
-        margin-top: 10px;
-        text-align: center;
+        order: 3; /* Make the auth panel appear last */
     }
 
     .auth-panel a {
-        font-size: 1.1em;
-        padding: 10px 15px;
-        margin-left: 0; /* Remove left margin for mobile */
+        font-size: 0.85em;
+        padding: 10px;
     }
 }
 
 /* Extra small screens (max-width: 480px) */
 @media (max-width: 480px) {
     .main-header .logo h1 {
-        font-size: 1.5em;
+        font-size: 1.3em;
     }
 
     .main-nav ul li a {
-        font-size: 1em;
-        padding: 10px 15px;
+        font-size: 0.8em;
+        padding: 8px;
     }
 
     .auth-panel a {
-        font-size: 1em;
-        padding: 8px 15px;
+        font-size: 0.8em;
+        padding: 7px;
     }
 
     .main-nav ul {
-        gap: 10px;
+        gap: 5px;
+    }
+
+    .main-nav ul li {
+        width: 100%;
+        flex: unset; /* Prevents stretching */
     }
 
     .main-nav ul li a {
-        padding: 8px 10px;
+        padding: 10px;
+        width: 100%;
         font-size: 0.9em;
-    }
-    
-    .auth-panel a {
-        font-size: 0.9em;
-        padding: 8px 10px;
     }
 
-    .btn-upload, .btn-delete-comment, .btn-submit-comment {
-        padding: 8px 10px;
-        font-size: 0.9em;
-        border-radius: 5px;
+    .auth-panel {
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .auth-panel a {
+        width: 100%;
     }
 }
