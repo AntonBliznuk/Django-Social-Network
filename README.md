@@ -89,8 +89,6 @@ Once the server is running, you can:
 	•	Customize your profile from the personal dashboard.
 	•	View personalized recommendations based on your interests.
 
-### Screenshots
-## Screenshots
 
 ## Screenshots
 
