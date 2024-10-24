@@ -92,7 +92,7 @@ Once the server is running, you can:
 ### Screenshots
 ## Screenshots
 
-## Screenshots ./images_readme/Recomendations.png
+## Screenshots
 
 | Home Page | Create Post | Post Details | About us | Profile |
 |-----------|--------------|--------------|------|-----------|
