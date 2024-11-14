@@ -4,6 +4,7 @@ from posts.models import Like, Post, PostView
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.cache import cache 
 
 
 def profile_page(request, user_id):
@@ -53,6 +54,8 @@ def profile_page(request, user_id):
 
             # If the query method is POST and the user is accessing someone else's page, then the user has clicked the “Subscribe” button.
             elif request.method == 'POST':
+                cache.delete(f'user_subscriptions_{request.user.id}')
+
                 this_user_subs = models.Subscribe.objects.filter(user_from=request.user, user_to=user)
                 if this_user_subs:
                     this_user_subs.delete()
@@ -83,6 +86,12 @@ def user_subscriptions(request, user_id):
     if there is no such user, redirects to the home page.
     """
     # Looking for a user with this user_id.
+
+    cache_key = f'user_subscriptions_{request.user.id}'
+    cached_data = cache.get(cache_key)
+    if cached_data:
+        return render(request, 'profiles/subscriptions.html', cached_data)
+
     user = models.CustomUser.objects.filter(id=user_id).first()
     if user:
 
@@ -96,6 +105,8 @@ def user_subscriptions(request, user_id):
             'subscriptions': models.Subscribe.objects.filter(user_from=user).order_by('-date'),
             'is_owner': is_owner,
         }
+
+        cache.set(cache_key, data, timeout=1000)
         return render(request, 'profiles/subscriptions.html', data)
     
     # If the user with this user_id does not exist, redirect to the home page.
@@ -117,6 +128,7 @@ def delete_user_subscriptions(request, user_id):
         if sub:
             if sub.user_from == request.user:
                 sub.delete()
+                cache.delete(f'user_subscriptions_{request.user.id}')
                 return redirect(request.POST.get('redirect_link'))
 
     # If errors occur during the process, redirect to the home page.

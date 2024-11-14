@@ -9,19 +9,6 @@ from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# MEDIA_URL = 'media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# Добавьте пути к статическим файлам каждого приложения
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'main/static'),
-#     os.path.join(BASE_DIR, 'posts/static'),
-#     os.path.join(BASE_DIR, 'profiles/static'),
-# ]
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
@@ -29,7 +16,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = [config('ALLOWED_HOSTS_RENDER'), '127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ['https://django-social-network-rb05.onrender.com']
+CSRF_TRUSTED_ORIGINS = [config('CSRF_TRUSTED_ORIGIN')]
 
 
 # Application definition
@@ -97,6 +84,17 @@ DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL')
     )
+}
+
+# Django caching with Redis.
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': config('EXTERNAL_REDIS_URL'),
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
 }
 
 

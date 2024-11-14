@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from . import forms, models
+from django.core.cache import cache 
 
 def create_post(request):
     """
@@ -48,6 +49,9 @@ def view_post(request, post_id):
     # If such a post exists, proceed as follows.
     if post:
 
+        # We create cache key.
+        cache_key = f'post_view_{request.session.session_key}'
+
         # Register post view by user.
         # If this user has already viewed this post, delete the past entry.
         if request.user.is_authenticated:
@@ -64,6 +68,9 @@ def view_post(request, post_id):
 
         # If the request method is POST and the user is authenticated, perform the following actions.
         if request.method == 'POST' and request.user.is_authenticated:
+
+            # If the user sent a POST request, we delete its cache, so that it will immediately see the changes, other users will see them only when they receive a new one. 
+            cache.delete(cache_key)
 
             # Fill out the comment form, if it is valid, create a new comment and redirect the user to the page of the same post.
             comment_form = forms.CommentForm(data=request.POST)
@@ -86,6 +93,11 @@ def view_post(request, post_id):
                 new_like.post = post
                 new_like.save()
                 return redirect(f'/post/{post_id}/')
+            
+        # Search for information by this key, if information was found, we put it in the dictionary.
+        cached_data = cache.get(cache_key)
+        if cached_data:
+            return render(request, 'posts/post.html', cached_data)
                 
         # If the request method is GET and the user is authenticated, perform the following actions.
         if request.method == 'GET' and request.user.is_authenticated:
@@ -107,6 +119,9 @@ def view_post(request, post_id):
             'comments': models.Comment.objects.filter(post=post).order_by('-date'),
             'like_amount': models.Like.objects.filter(post=post).count(),
         }
+        # if information wasn't found, we cache the result.
+        cache.set(cache_key, data, timeout=600)
+
         return render(request, 'posts/post.html', data)
     
     # If no such post was found, we redirect to the home page.
@@ -127,6 +142,10 @@ def delete_comment(request, post_id):
         if comment:
             if comment.post.user.id == request.user.id:
                 comment.delete()
+
+                # If a user deleted a comment under his/her post, we clear the cache so that the user can immediately see the changes.
+                cache.delete(f'post_view_{request.session.session_key}')
+
                 return redirect(f'/post/{post_id}/')
     
     # If something went wrong in the process, for example, the comment does not exist or the user does not have permission to delete it,
