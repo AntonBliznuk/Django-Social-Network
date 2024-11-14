@@ -134,6 +134,8 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'profiles.CustomUser'
 
+CSRF_TRUSTED_ORIGINS = ['https://django-social-network-rb05.onrender.com/']
+
 
 # Cloudinary
 CLOUDINARY_STORAGE = {
