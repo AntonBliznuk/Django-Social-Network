@@ -1,1 +1,0 @@
-web: gunicorn NewPaper.wsgi --log-file -

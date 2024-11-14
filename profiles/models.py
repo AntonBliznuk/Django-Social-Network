@@ -1,11 +1,14 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from cloudinary.models import CloudinaryField
+from decouple import config
+
 
 """
 Custom user model for storing image.
 """
 class CustomUser(AbstractUser):
-    profile_picture = models.ImageField(upload_to='profile_pictures/', default='profile_pictures/Default.jpg', blank=True, null=True)
+    profile_picture = CloudinaryField('image', default=config('DEFAULT_USER_PHOTO_URL'))
 
     def __str__(self) -> str:
         return f"{self.username} -> {self.id}"

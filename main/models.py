@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 """
 A model for storing employees' professions.
@@ -21,7 +22,7 @@ A model for storing information on female workers.
 class Worker(models.Model):
     first_name = models.CharField(max_length=25, blank=False)
     second_name = models.CharField(max_length=25, blank=False)
-    photo = models.ImageField(upload_to='workers/', blank=False)
+    photo = CloudinaryField('image')
     position = models.ForeignKey(Position, on_delete=models.CASCADE, blank=False)
 
     def __str__(self) -> str:

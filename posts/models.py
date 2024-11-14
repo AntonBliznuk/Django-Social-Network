@@ -1,5 +1,6 @@
 from django.db import models
 from profiles.models import CustomUser
+from cloudinary.models import CloudinaryField
 
 """
 A model for storing user posts.
@@ -8,7 +9,7 @@ class Post(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     text = models.TextField()
     description = models.CharField(max_length=150, blank=True, null=True)
-    image = models.ImageField(upload_to='prost_pictures/', blank=True, null=True)
+    image = CloudinaryField('image')
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
