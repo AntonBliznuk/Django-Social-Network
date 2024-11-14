@@ -29,6 +29,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = [config('ALLOWED_HOSTS_RENDER'), '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://django-social-network-rb05.onrender.com']
 
 
 # Application definition
@@ -134,7 +135,6 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'profiles.CustomUser'
 
-CSRF_TRUSTED_ORIGINS = ['https://django-social-network-rb05.onrender.com/']
 
 
 # Cloudinary
