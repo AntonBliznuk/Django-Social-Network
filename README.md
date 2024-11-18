@@ -5,7 +5,7 @@
 
 ---
 ## **Scheme of work**
-![[images_readme/scheme.jpg]]
+![scheme](images_readme/scheme.jpg)
 ### Scheme Description:
 1. **Users** - send requests to the application.
 2. **Application** - accepts requests and performs actions.
