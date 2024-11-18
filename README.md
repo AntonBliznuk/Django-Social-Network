@@ -9,6 +9,7 @@
 ### Scheme Description:
 1. **Users** - send requests to the application.
 2. **Application** - accepts requests and performs actions.
+
 	**Posts** - responsible for post logic(create, view, delete, comments, likes, categories).
 	
 	**Main** -  responsible for the recommendation system and search for posts, as well as displaying informative pages.
