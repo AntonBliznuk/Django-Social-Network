@@ -1,5 +1,5 @@
 
-![Django Social Network Logo](images_readme/logo.jpg)
+          ![Django Social Network Logo](images_readme/logo.jpg)
 
 **Django Social Network** - lightweight and feature-rich social network built with Django. It allows users to register, create and publish posts, explore posts from other users, like and comment on posts, follow other users, view detailed user profiles, and enjoy personalized post recommendations based on their activity.
 
@@ -22,14 +22,15 @@
 ---
 ## **Interface screenshots:**
 ### **Home page**
-![[images_readme/HomePage.png]]
+![HomePage](images_readme/HomePage.png)
 
 ---
 ### **User Profile**
-![[images_readme/ProfilePage.png]]
+![ProfilePage](images_readme/ProfilePage.png)
 
 ----
-### **Creating a post**![[images_readme/Create_Post.png]]
+### **Creating a post**
+![Create_Post](images_readme/Create_Post.png)
 ---
 
 ## **Technology:**
