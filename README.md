@@ -21,19 +21,10 @@
 5. **Cloudinary** - storing all images.
 
 ---
-## **Interface screenshots:**
-### **Home page**
-![HomePage](images_readme/HomePage.png)
+## Additional information:
+**Performance** - The whole application is fully deployed on Render using free plans, but because of this the speed of responses is not the best. Any query to the database takes at least 1 second, but if you run the application locally (with a local database) or with at least the cheapest plan everything will work quite fast. 
 
 ---
-### **User Profile**
-![ProfilePage](images_readme/ProfilePage.png)
-
-----
-### **Creating a post**
-![Create_Post](images_readme/Create_Post.png)
----
-
 ## **Technology:**
 - **Backend**: Django  
 - **Database**: PostgreSQL  
@@ -43,30 +34,6 @@
 - **API integrations**: Cloudinary
 
 ---
-### **Local Installation**
-1. Clone the repository:
-```bash
-git clone https://github.com/AntonBliznuk/Django-Social-Network
-```
-
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-3. Perform database migrations:
-```bash
-python3 manage.py migrate
-```
-
-4. Start the local development server:
-```bash
-python manage.py runserver
-```
-
-6. Open the application in your browser: [http://127.0.0.1:8000](http://127.0.0.1:8000).
-
-
 ### **Contacts**
 If you have any questions or suggestions, email me:
 
