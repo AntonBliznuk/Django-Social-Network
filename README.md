@@ -9,13 +9,9 @@
 ### Scheme Description:
 1. **Users** - send requests to the application.
 2. **Application** - accepts requests and performs actions.
-
 	**Posts** - responsible for post logic(create, view, delete, comments, likes, categories).
-	
 	**Main** -  responsible for the recommendation system and search for posts, as well as displaying informative pages.
-	
 	**Profiles** - responsible for the logic of user profiles (registration, login, logout, profile view, subscriptions).
-	
 3. **Redis** - data caching to reduce load.
 4. **PostgeSQL** - storage of all data (users, posts), as well as links to photos in cloudinary.
 5. **Cloudinary** - storing all images.
