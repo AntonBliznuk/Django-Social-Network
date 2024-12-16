@@ -18,7 +18,8 @@
 
 ---
 ## Additional information:
-**Performance** - The whole application is fully deployed on Render using free plans, but because of this the speed of responses is not the best. Any query to the database takes at least 1 second, but if you run the application locally (with a local database) or with at least the cheapest plan everything will work quite fast. 
+- **Performance** - The whole application is fully deployed on Render using free plans, but because of this the speed of responses is not the best. Any query to the database takes at least 1 second, but if you run the application locally (with a local database) or with at least the cheapest plan everything will work quite fast. 
+- **Appearance** - I don't do front-end development and am not very good at HTML and CSS so the look may not be the best, the application mostly shows the back-end. But if you want to improve the appearance, contact me.
 
 ---
 ## **Technology:**
