@@ -48,7 +48,7 @@ def home(request):
             else:
                 # if information wasn't found, we cache the result.
                 result = recomender.random_rec()
-                cache.set(cache_key_not_auth, result, timeout=300)
+                cache.set(cache_key_not_auth, result, timeout=15)
                 data['posts'] = result
         except:
             data['posts'] = None
@@ -65,7 +65,7 @@ def home(request):
         # and if we failed we pass random recommendations.
         elif (result := recomender.user_rec(request.user)):
             # if information wasn't found, we cache the result.
-            cache.set(cache_key_is_authenticated, result, timeout=300)
+            cache.set(cache_key_is_authenticated, result, timeout=15)
             data['posts'] = result
         else:
             try:
@@ -92,7 +92,7 @@ def about(request):
     # if information wasn't found, we cache the result.
     else:
         result = models.Worker.objects.all()
-        cache.set(cache_key, result, timeout=1500)
+        cache.set(cache_key, result, timeout=15)
         data['workers'] = result
 
     return render(request, 'main/about.html', data)
